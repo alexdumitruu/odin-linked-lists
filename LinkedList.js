@@ -36,10 +36,10 @@ function LinkedList() {
     size++;
     return size;
   }
-  function head() {
+  function getHead() {
     return head;
   }
-  function tail() {
+  function getTail() {
     let current = head;
     while (current.nextNode !== null) {
       current = current.nextNode;
@@ -92,10 +92,46 @@ function LinkedList() {
 
   function toString() {
     let string = ``
-    for (let i = 0; i < LinkedList.size(); i++) {
-        string = string + `( ${LinkedList.at(i).value} ) -> `;
+    size = size();
+    let currentValue = 0;
+    for (let i = 0; i < size; i++) {
+        currentValue = at(i).value; 
+        string = string + `( ${currentValue} ) -> `;
     }
     string = string + ` null`;
     return string;
   }
+
+  function insertAt(value, index) {
+    let current = LinkedList.at(index);
+    let prev = LinkedList.at(index - 1);
+    const newNode = Node(value);
+    prev.nextNode = newNode;
+    newNode.nextNode = current;
+  }
+
+  function removeAt(index) {
+    let current = LinkedList.at(index);
+    let prev = LinkedList.at(index - 1);
+    prev.nextNode = current.nextNode;
+    current.value = null;
+    current.nextNode = null;
+  }
+
+  return {
+    append,
+    prepend,
+    size,
+    at,
+    contains,
+    find,
+    getHead,
+    getTail,
+    insertAt,
+    pop,
+    removeAt,
+    toString
+  }
 }
+
+export {LinkedList};
